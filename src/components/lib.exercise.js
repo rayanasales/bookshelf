@@ -2,9 +2,24 @@ import styled from '@emotion/styled/macro'
 // using the macro will add a display name according to the name of the constant.
 // also makes the css prop more dev friendly
 // this helps to debug the component tree.
+import {keyframes} from '@emotion/core'
+import {FaSpinner} from 'react-icons/fa'
 import {Dialog as ReachDialog} from '@reach/dialog'
 import * as colors from 'styles/colors'
 import * as mq from 'styles/media-queries'
+
+const spin = keyframes({
+  '0%': {transform: 'rotate(0deg)'},
+  '100%': {transform: 'rotate(360deg)'},
+})
+
+const Spinner = styled(FaSpinner)({
+  animation: `${spin} 1s linear infinite`,
+})
+
+Spinner.defaultProps = {
+  'aria-label': 'loading',
+}
 
 const buttonVariant = {
   primary: {
@@ -67,4 +82,4 @@ const Dialog = styled(ReachDialog)({
   },
 })
 
-export {Button, Input, FormGroup, CircleButton, Dialog}
+export {Button, Input, FormGroup, CircleButton, Dialog, Spinner}
