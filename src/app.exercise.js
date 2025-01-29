@@ -46,9 +46,7 @@ function App() {
     setData(null)
   }
 
-  if (isLoading || isIdle) {
-    return <FullPageSpinner />
-  }
+  if (isLoading || isIdle) return <FullPageSpinner />
 
   if (isError) {
     return (
