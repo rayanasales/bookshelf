@@ -2,7 +2,7 @@
 import {jsx} from '@emotion/core'
 
 import * as React from 'react'
-import {Routes, Route, Link} from 'react-router-dom'
+import {Routes, Route, Link, useMatch} from 'react-router-dom'
 import {Button} from './components/lib'
 import * as mq from './styles/media-queries'
 import * as colors from './styles/colors'
@@ -55,23 +55,43 @@ function AuthenticatedApp({user, logout}) {
 }
 
 function NavLink(props) {
+  const match = useMatch(props.to)
+  /**
+   * If you ever need to know whether the current URL matches a specific route,
+   * then you can use the useMatch hook from react-router-dom, and what you get
+   * back will tell you whether or not you match that current route.
+   */
+
   return (
     <Link
-      css={{
-        display: 'block',
-        padding: '8px 15px 8px 10px',
-        margin: '5px 0',
-        width: '100%',
-        height: '100%',
-        color: colors.text,
-        borderRadius: '2px',
-        borderLeft: '5px solid transparent',
-        ':hover': {
-          color: colors.indigo,
-          textDecoration: 'none',
-          background: colors.gray10,
-        },
-      }}
+      css={
+        ([
+          {
+            display: 'block',
+            padding: '8px 15px 8px 10px',
+            margin: '5px 0',
+            width: '100%',
+            height: '100%',
+            color: colors.text,
+            borderRadius: '2px',
+            borderLeft: '5px solid transparent',
+            ':hover': {
+              color: colors.indigo,
+              textDecoration: 'none',
+              background: colors.gray10,
+            },
+          },
+        ],
+        match
+          ? {
+              borderLeft: `5px solid ${colors.indigo}`,
+              background: colors.gray10,
+              ':hover': {
+                background: colors.gray20,
+              },
+            }
+          : null)
+      }
       {...props}
     />
   )
